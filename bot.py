@@ -1,11 +1,11 @@
 import requests
 import telegram
-import schedule
 import time
 from bs4 import BeautifulSoup
-
 import os
-import telegram
+import pytz
+from datetime import datetime
+
 
 TOKEN = os.environ.get("BOT_TOKEN")
 CHAT_ID = os.environ.get("CHAT_ID")
@@ -47,11 +47,17 @@ def send_news():
     news = morning_brief()
     bot.send_message(chat_id=CHAT_ID, text=news)
 
-# ⏰ Runs every day at 08:00 AM
-schedule.every().day.at("08:00").do(send_news)
+IST = pytz.timezone("Asia/Kolkata")
 
-print("Bot running... Waiting for 08:00 AM")
+print("Bot running... Waiting for 08:00 AM IST")
 
 while True:
-    schedule.run_pending()
-    time.sleep(30)
+    now_utc = datetime.utcnow()
+    now_ist = now_utc.replace(tzinfo=pytz.utc).astimezone(IST)
+
+    if now_ist.hour == 8 and now_ist.minute == 0:
+        print("Sending morning update at 8:00 AM IST...")
+        send_news()
+        time.sleep(60)
+
+    time.sleep(20)
