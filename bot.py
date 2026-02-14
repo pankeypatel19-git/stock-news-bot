@@ -7,8 +7,8 @@ from bs4 import BeautifulSoup
 import os
 import telegram
 
-TOKEN = os.environ.get("8350282877:AAFtkC2x_otxzzGPj4v7fKGYn6T05nU6Zxo")
-CHAT_ID = os.environ.get("7664038478")
+TOKEN = os.environ.get("BOT_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 
 print("DEBUG TOKEN:", TOKEN)
 print("DEBUG CHAT_ID:", CHAT_ID)
