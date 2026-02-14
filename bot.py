@@ -5,9 +5,16 @@ import time
 from bs4 import BeautifulSoup
 
 import os
+import telegram
 
 TOKEN = os.environ.get("8350282877:AAFtkC2x_otxzzGPj4v7fKGYn6T05nU6Zxo")
 CHAT_ID = os.environ.get("7664038478")
+
+print("DEBUG TOKEN:", TOKEN)
+print("DEBUG CHAT_ID:", CHAT_ID)
+
+if not TOKEN:
+    raise Exception("BOT_TOKEN is not set in environment variables")
 
 bot = telegram.Bot(token=TOKEN)
 
