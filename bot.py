@@ -203,4 +203,37 @@ def morning_summary():
         for event in daily_events:
             summary += event + "\n\n"
 
-    bot.send_message(chat_id=CHA:contentReference[oaicite:0]{index=0}
+    bot.send_message(chat_id=CHAT_ID, text=summary)
+
+    daily_events = []
+
+# ==============================
+# MAIN LOOP
+# ==============================
+
+print("Institutional Flow Bot Running (Hybrid Mode)")
+
+last_scan_minute = -1
+
+while True:
+    try:
+        now_utc = datetime.utcnow()
+        now_ist = now_utc.replace(tzinfo=pytz.utc).astimezone(IST)
+
+        # Every 15 minutes
+        if now_ist.minute % 15 == 0 and now_ist.minute != last_scan_minute:
+            scan_news()
+            last_scan_minute = now_ist.minute
+
+        # 8 AM Summary
+        if now_ist.hour == 8 and now_ist.minute == 0:
+            morning_summary()
+            time.sleep(60)
+
+        time.sleep(20)
+
+    except Exception as e:
+        print("Main loop error:", e)
+        time.sleep(30)
+
+
